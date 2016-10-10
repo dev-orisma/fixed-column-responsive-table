@@ -1,5 +1,9 @@
-    var fixtablObj = [];
-        function fixtabl(elem , colfix){
+(function($){
+
+	  $.freezColumn = function( elem ,options ) {
+	  		var _this = this;
+	    	_this.settings = $.extend({},$.freezColumn.defaultOptions, options);
+
         	if( $(elem).parent().hasClass("fixtablscroller")){
         		// only calulate column
         		if( $(elem).width() <= $(elem).parent().parent().parent().width()) {
@@ -23,7 +27,10 @@
 			var fixtable = fixtablscroller.parent();
 			fixtable.css({position: "relative"});
 
-			var columnwidth = $("td:eq(2)",elem).position().left+1;
+
+			var columnwidth = $("td:eq(" +  parseInt( _this.settings["col"]) +")",elem).position().left+1;
+			console.log("columnwidth: ", columnwidth ,elem);
+
 			var fixtablecolumn = fixtablscroller.next();
 			fixtablecolumn.css({
 	        	position: "absolute",
@@ -33,16 +40,27 @@
 				width: columnwidth
 			}).append(clonetable);
 			fixtablscroller.floatingScrollbar();
-        }
 
-        	$(document).ready(function () {
-				$("table").each(function (i,v) {
-					fixtablObj.push(this);
-        			fixtabl(this );
-        		});
-        		$(window).on("resize",function(i,v){
-        			for( var el in fixtablObj){
-        				fixtabl(fixtablObj[el] );
-        			}
-        		})
-        	})
+	  };
+
+
+	    $.freezColumn.defaultOptions = {
+            "col": 1
+        };
+        $.freezColumn.fixtablObj = [];
+
+        $.fn.freezColumn = function(options){
+        	return this.each(function(){
+
+				$.freezColumn.fixtablObj.push(this);
+        		$.freezColumn(this, options);
+        	});
+
+        };
+
+        $(window).on("resize",function(i,v){
+			for( var el in $.freezColumn.fixtablObj){
+				$.freezColumn($.freezColumn.fixtablObj[el] );
+			}
+		})
+})(jQuery);
