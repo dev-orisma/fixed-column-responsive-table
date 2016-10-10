@@ -4,58 +4,7 @@
         <title>FixedHeaderTable Test</title>
         <link href="css/myTheme.css" rel="stylesheet" media="screen" />
 		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-		<script src="jquery.ba-floatingscrollbar.js"></script>
 
-        <script >
-        var fixtablObj = [];
-        function fixtabl(elem , colfix){
-        	if( $(elem).parent().hasClass("fixtablscroller")){
-        		// only calulate column
-        		if( $(elem).width() <= $(elem).parent().parent().parent().width()) {
-		        		$(elem).parent().parent().replaceWith(elem);
-		        		return;
-		        	}
-        		return;
-        	}
-        	if( $(elem).width() <= $(elem).parent().width()) {
-        		return;
-        	}
-
-			var clonetable = $(elem).clone();
-			$(elem).wrap(function() {
-			  return "<div class='fixtable'><div class='fixtablscroller'></div></div>";
-			});
-			var fixtablscroller = $(elem).parent();
-			fixtablscroller.css({overflow: "auto"});
-			fixtablscroller.after("<div class='fixtablecolumn'></div>");
-
-			var fixtable = fixtablscroller.parent();
-			fixtable.css({position: "relative"});
-
-			var columnwidth = $("td:eq(2)",elem).position().left+1;
-			var fixtablecolumn = fixtablscroller.next();
-			fixtablecolumn.css({
-	        	position: "absolute",
-	        	top: 0,
-	        	left: 0,
-	        	overflow: "hidden",
-				width: columnwidth
-			}).append(clonetable);
-			fixtablscroller.floatingScrollbar();
-        }
-
-        	$(document).ready(function () {
-				$("table").each(function (i,v) {
-					fixtablObj.push(this);
-        			fixtabl(this );
-        		});
-        		$(window).on("resize",function(i,v){
-        			for( var el in fixtablObj){
-        				fixtabl(fixtablObj[el] );
-        			}
-        		})
-        	})
-        </script>
     </head>
     <body>
 
@@ -282,5 +231,8 @@
             </tr>
         </thead>
         <tbody class="results"> <tr> <td>Jan</td> <td>3163asdasd</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Feb</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Mar</td> <td>3163 some long text</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Apr</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>May</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Jun</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>...</td> <td>...</td> <td>...</td> <td>...</td> <td>...</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> </tbody> </table>
+
+        <script src="jquery.ba-floatingscrollbar.js"></script>
+		<script src="jquery.fixed-column-table.js"></script>
     </body>
 </html>

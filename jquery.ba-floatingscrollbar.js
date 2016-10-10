@@ -38,14 +38,14 @@ $("body").bind("touchend",function() {
 
   // Initialize the floating scrollbar.
   scroller
-    .hide()
     .css({
-      position: 'fixed',
-      bottom: 0,
-      height: '30px',
-      overflowX: 'auto',
-            overflowY: 'hidden',
-            zIndex: 1
+		display: 'none',
+		position: 'fixed',
+		bottom: 0,
+		height: '30px',
+		overflowX: 'auto',
+		overflowY: 'hidden',
+		zIndex: 1
     })
     .scroll(function() {
       // If there's a current element, set its scroll appropriately.
