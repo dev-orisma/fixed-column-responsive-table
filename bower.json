@@ -1,0 +1,30 @@
+{
+  "name": "Fixed-Header-Table",
+  "version": "1.3.2",
+  "homepage": "https://github.com/mwils/Fixed-Header-Table",
+  "authors": [
+    "Mark Malek"
+  ],
+  "description": "jQuery plugin for tables with fixed headers http://www.fixedheadertable.com",
+  "main": "jquery.fixedheadertable.js",
+  "keywords": [
+    "jQuery",
+    "plugin",
+    "jQuery",
+    "tables",
+    "fixed",
+    "header",
+    "scroll",
+    "table",
+    "fixed",
+    "header",
+    "table"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "demo"
+  ],
+  "dependencies": {
+    "malihu-custom-scrollbar-plugin": "^3.1.5"
+  }
+}

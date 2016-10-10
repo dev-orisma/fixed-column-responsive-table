@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FixedHeaderTable Test</title>
+
+        <link href="css/myTheme.css" rel="stylesheet" media="screen" />
+
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+        <style>
+        td{
+        	/*white-space: nowrap;*/
+        }
+        .fixtable{
+        	position: relative;
+
+        }
+        .fixtablscroller{
+        	overflow: auto;
+        }
+        .fixtablecolumn{
+        	position: absolute;
+        	top: 0;
+        	left: 0;
+        	overflow: hidden;
+
+        }
+
+        </style>
+
+
+        <script >
+        var fixtablObj = [];
+        function fixtabl(elem , colfix){
+
+
+        	if( $(elem).parent().hasClass("fixtablscroller")){
+        		// only calulate column
+        		if( $(elem).width() <= $(elem).parent().parent().parent().width()) {
+		        		$(elem).parent().parent().replaceWith(elem);
+		        		return;
+		        	}
+
+        		return;
+        	}
+        	if( $(elem).width() <= $(elem).parent().width()) {
+        		return;
+        	}
+
+			var clonetable = $(elem).clone();
+			$(elem).wrap(function() {
+			  return "<div class='fixtable'><div class='fixtablscroller'></div></div>";
+			}).parent().after("<div class='fixtablecolumn'></div>");
+			var columnwidth = $("td:eq(2)",elem).position().left+1;
+			$(elem).parent().next().css({
+				width: columnwidth
+			}).append(clonetable);
+			clonetable.addClass("clonetable");
+        }
+
+        	$(document).ready(function () {
+				$("table").each(function (i,v) {
+					fixtablObj.push(this);
+        			fixtabl(this );
+        		});
+        		$(window).on("resize",function(i,v){
+        			for( var el in fixtablObj){
+        				fixtabl(fixtablObj[el] );
+        			}
+        		})
+        	})
+
+
+        </script>
+    </head>
+    <body>
+
+<div id="table-listing" style="width:300px;overflow: hidden;">
+    <table class="fancyTable"  cellpadding="0" cellspacing="0">
+        <thead class="header">
+            <tr>
+                <th>Month</th>
+                <th>Item 1</th>
+                <th>Item 2</th>
+                <th>Item 3</th>
+                <th>Item 4</th>
+                <th>Item 5</th>
+                <th>Item 6</th>
+                <th>Item 7</th>
+                <th>Item 8</th>
+            </tr>
+        </thead>
+        <tbody class="results"> <tr> <td>Jan</td> <td>3163asdasd</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Feb</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Mar</td> <td>3163 some long text</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Apr</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>May</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Jun</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>...</td> <td>...</td> <td>...</td> <td>...</td> <td>...</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> </tbody> </table>
+</div>
+
+
+
+			<div  >
+        		<table class="table-list table-panel fancyTable " border="1" bgcolor="red">
+					<thead>
+					<tr class="">
+						<td class=" " rowspan="2">Unitholder</td>
+						<td class=" " rowspan="2">Fund Code</td>
+						<td class=" " rowspan="2">Unit Balances</td>
+						<td class=" " rowspan="2">NAV</td>
+						<td class=" " rowspan="2">Amount Balances</td>
+						<td class=" " colspan="2">Wait for Allocation</td>
+					</tr>
+					<tr class="">
+						<td class="   value ">Unit</td>
+						<td class="   value last ">Baht</td>
+					</tr>
+					</thead>
+					<tbody>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" odd"> <td class="  " style="height: 22px; width: 150px;">0561234567</td> <td class="  ">CG-LTF</td> <td class=" ">1,047.7678</td> <td class=" ">50.5570</td> <td class=" ">52,970.63</td> <td class=""></td> <td class=""></td> </tr>
+
+					<tr class=" even"> <td class="" style="height: 22px; width: 150px;"></td> <td class="  ">T3P3 (10)</td> <td class=" ">2,158.2050</td> <td class=" ">24.4282</td> <td class=" ">52,721.06</td> <td class=""></td> <td class=""></td> </tr>
+
+
+					<tr class=" odd">
+						<td class="" style="height: 22px; width: 150px;"></td>
+						<td class="  ">UOBEQRMF</td>
+						<td class=" ">1,047.7678</td>
+						<td class=" ">50.5570</td>
+						<td class=" ">52,970.63</td>
+						<td class=""></td>
+						<td class=""></td>
+					</tr>
+					<tr class=" even">
+						<td class="" style="height: 22px; width: 150px;"></td>
+						<td class="  ">VALUE-D LTF</td>
+						<td class=" ">2,158.2050</td>
+						<td class=" ">24.4282</td>
+						<td class=" ">52,721.06</td>
+						<td class=""></td>
+						<td class=""></td>
+					</tr>
+					<tr class="tr-result">
+						<td colspan="4" class="  " style="height: 26px; width: 150px;">Sub Total</td>
+						<td class="  num ">251,383.38</td>
+						<td colspan="2" class="  "></td>
+					</tr>
+					<tr class=" odd">
+						<td class="  " style="height: 22px; width: 150px;">0556789000</td>
+						<td class="  ">UOBEST</td>
+						<td class=" ">1,047.7678</td>
+						<td class=" ">50.5570</td>
+						<td class=" ">52,970.63</td>
+						<td class=""></td>
+						<td class=""></td>
+					</tr>
+					<tr class=" even">
+						<td class="" style="height: 22px; width: 150px;"></td>
+						<td class="  ">UOBT19</td>
+						<td class=" ">2,158.2050</td>
+						<td class=" ">24.4282</td>
+						<td class=" ">52,721.06</td>
+						<td class=""></td>
+						<td class=""></td>
+					</tr>
+					<tr class="tr-result">
+						<td colspan="4" class="  " style="height: 26px; width: 150px;">Sub Total</td>
+						<td class="  num ">105,691.69</td>
+						<td colspan="2" class="  "></td>
+					</tr>
+					<tr class=" odd">
+						<td class="  " style="height: 22px; width: 150px;">0561234567</td>
+						<td class="  ">CG-LTF</td>
+						<td class=" ">1,047.7678</td>
+						<td class=" ">50.5570</td>
+						<td class=" ">52,970.63</td>
+						<td class=""></td>
+						<td class=""></td>
+					</tr>
+					<tr class=" even">
+						<td class="" style="height: 22px; width: 150px;"></td>
+						<td class="  ">T3P3 (10)</td>
+						<td class=" ">2,158.2050</td>
+						<td class=" ">24.4282</td>
+						<td class=" ">52,721.06</td>
+						<td class=""></td>
+						<td class=""></td>
+					</tr>
+					<tr class=" odd">
+						<td class="" style="height: 22px; width: 150px;"></td>
+						<td class="  ">UOBEQRMF</td>
+						<td class=" ">1,047.7678</td>
+						<td class=" ">50.5570</td>
+						<td class=" ">52,970.63</td>
+						<td class=""></td>
+						<td class=""></td>
+					</tr>
+					<tr class=" even">
+						<td class="" style="height: 22px; width: 150px;"></td>
+						<td class="  ">VALUE-D LTF</td>
+						<td class=" ">2,158.2050</td>
+						<td class=" ">24.4282</td>
+						<td class=" ">52,721.06</td>
+						<td class=""></td>
+						<td class=""></td>
+					</tr>
+					<tr class="tr-result">
+						<td colspan="4" class="  " style="height: 26px; width: 150px;">Sub Total</td>
+						<td class="  num ">251,383.38</td>
+						<td colspan="2" class="  "></td>
+					</tr>
+					<tr class=" odd">
+						<td class="  " style="height: 22px; width: 150px;">0556789000</td>
+						<td class="  ">UOBEST</td>
+						<td class=" ">1,047.7678</td>
+						<td class=" ">50.5570</td>
+						<td class=" ">52,970.63</td>
+						<td class=""></td>
+						<td class=""></td>
+					</tr>
+					<tr class=" even">
+						<td class="" style="height: 22px; width: 150px;"></td>
+						<td class="  ">UOBT19</td>
+						<td class=" ">2,158.2050</td>
+						<td class=" ">24.4282</td>
+						<td class=" ">52,721.06</td>
+						<td class=""></td>
+						<td class=""></td>
+					</tr>
+					<tr class="tr-result">
+						<td colspan="4" class="  " style="height: 26px; width: 150px;">Sub Total</td>
+						<td class="  num ">105,691.69</td>
+						<td colspan="2" class="  "></td>
+					</tr>
+					</tbody>
+					<tfoot>
+					<tr class="tr-last-result">
+						<td colspan="4" class="  ">Total</td>
+						<td class="  ">357,075.07</td>
+						<td colspan="2" class="  "></td>
+					</tr>
+					</tfoot><tfoot>
+				</tfoot></table>
+			</div>
+
+			 <table class="c"  cellpadding="0" cellspacing="0">
+        <thead class="header">
+            <tr>
+                <th>Month</th>
+                <th>Item 1</th>
+                <th>Item 2</th>
+                <th>Item 3</th>
+                <th>Item 4</th>
+                <th>Item 5</th>
+                <th>Item 6</th>
+                <th>Item 7</th>
+                <th>Item 8</th>
+            </tr>
+        </thead>
+        <tbody class="results"> <tr> <td>Jan</td> <td>3163asdasd</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Feb</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Mar</td> <td>3163 some long text</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Apr</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>May</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>Jun</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> <tr> <td>...</td> <td>...</td> <td>...</td> <td>...</td> <td>...</td> <td>3163</td> <td>3163</td> <td>3163</td> <td>3163</td> </tr> </tbody> </table>
+    </body>
+</html>
