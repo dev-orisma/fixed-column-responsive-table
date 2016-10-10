@@ -2,45 +2,19 @@
 <html>
     <head>
         <title>FixedHeaderTable Test</title>
-
         <link href="css/myTheme.css" rel="stylesheet" media="screen" />
-
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
-
-        <style>
-        td{
-        	/*white-space: nowrap;*/
-        }
-        .fixtable{
-        	position: relative;
-
-        }
-        .fixtablscroller{
-        	overflow: auto;
-        }
-        .fixtablecolumn{
-        	position: absolute;
-        	top: 0;
-        	left: 0;
-        	overflow: hidden;
-
-        }
-
-        </style>
-
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="jquery.ba-floatingscrollbar.js"></script>
 
         <script >
         var fixtablObj = [];
         function fixtabl(elem , colfix){
-
-
         	if( $(elem).parent().hasClass("fixtablscroller")){
         		// only calulate column
         		if( $(elem).width() <= $(elem).parent().parent().parent().width()) {
 		        		$(elem).parent().parent().replaceWith(elem);
 		        		return;
 		        	}
-
         		return;
         	}
         	if( $(elem).width() <= $(elem).parent().width()) {
@@ -50,12 +24,24 @@
 			var clonetable = $(elem).clone();
 			$(elem).wrap(function() {
 			  return "<div class='fixtable'><div class='fixtablscroller'></div></div>";
-			}).parent().after("<div class='fixtablecolumn'></div>");
+			});
+			var fixtablscroller = $(elem).parent();
+			fixtablscroller.css({overflow: "auto"});
+			fixtablscroller.after("<div class='fixtablecolumn'></div>");
+
+			var fixtable = fixtablscroller.parent();
+			fixtable.css({position: "relative"});
+
 			var columnwidth = $("td:eq(2)",elem).position().left+1;
-			$(elem).parent().next().css({
+			var fixtablecolumn = fixtablscroller.next();
+			fixtablecolumn.css({
+	        	position: "absolute",
+	        	top: 0,
+	        	left: 0,
+	        	overflow: "hidden",
 				width: columnwidth
 			}).append(clonetable);
-			clonetable.addClass("clonetable");
+			fixtablscroller.floatingScrollbar();
         }
 
         	$(document).ready(function () {
@@ -69,8 +55,6 @@
         			}
         		})
         	})
-
-
         </script>
     </head>
     <body>

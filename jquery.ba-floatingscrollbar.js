@@ -1,12 +1,23 @@
 /*!
  * jQuery Floating Scrollbar - v0.4 - 02/28/2011
  * http://benalman.com/
- * 
+ *
  * Copyright (c) 2011 "Cowboy" Ben Alman
  * Dual licensed under the MIT and GPL licenses.
  * http://benalman.com/about/license/
  */
-
+var tempScrollDirection;
+var tempScrollTop;
+$("body").bind("touchend",function() {
+   //alert(1);
+    if ($(window).scrollTop() > tempScrollTop) {
+        tempScrollDirection = "down";
+    }
+    if ($(window).scrollTop() < tempScrollTop) {
+        tempScrollDirection = "up";
+    }
+    tempScrollTop = $(window).scrollTop();
+});
 (function($){
   var // A few reused jQuery objects.
       win = $(this),
@@ -33,7 +44,8 @@
       bottom: 0,
       height: '30px',
       overflowX: 'auto',
-      overflowY: 'hidden'
+            overflowY: 'hidden',
+            zIndex: 1
     })
     .scroll(function() {
       // If there's a current element, set its scroll appropriately.
@@ -96,13 +108,23 @@
     // Find the first element whose content is visible, but whose bottom is
     // below the viewport.
     elems.each(function(){
+            var userAgent = window.navigator.userAgent;
+            //alert(userAgent);
+            var adjus = 0;
+            if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+                adjus = 70;
+            }
       var elem = $(this),
           top = elem.offset().top,
           bottom = top + elem.height(),
-          viewportBottom = win.scrollTop() + win.height(),
+                viewportCheck = win.scrollTop() + win.height();
+            if (tempScrollDirection == "up" && userAgent.match(/Android/i) && userAgent.match(/Mobile/i) && bottom > viewportCheck) {
+                adjus = 60;
+            }
+            var viewportBottom = win.scrollTop() + win.height() + adjus,
           topOffset = 30;
-
       if ( top + topOffset < viewportBottom && bottom > viewportBottom ) {
+
         current = elem;
         return false;
       }
